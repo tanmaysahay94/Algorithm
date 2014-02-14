@@ -1,5 +1,4 @@
 # include <stdio.h>
-# include <conio.h>
 # include <stdlib.h>
 
 typedef struct BST
@@ -22,7 +21,6 @@ void main()
 	node *new_node,*root,*tmp,*parent;
 	node *get_node();
 	root=NULL;
-	clrscr();
 
 	printf("nProgram For Binary Search Tree ");
 	do
