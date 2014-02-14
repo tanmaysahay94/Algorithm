@@ -69,6 +69,18 @@ void postOrder(node *tree)
 		printf("%d\n",tree->data);
 	}
 }
+void lazyDelete(node *tree,int val)
+{
+	if(tree)
+	{
+		if(tree->data==val)
+			tree->data=0;
+		else if(val<tree->data)
+			search(tree->leftChild,val);
+		else
+			search(tree->rightChild,val);
+	}
+}
 int main()
 {
 	node *root;
@@ -88,14 +100,13 @@ int main()
 		else
 			insert(root,temp);
 	}
-	inOrder(root);
 	printf("Enter search value\n");
 	scanf("%d",&n);
 	search(root,n);
-	/*	printf("Enter value to delete\n");
-	 *	scanf("%d",&n);
-		delete(root,n);
-*/	printf("In-order printing\n");
+	printf("Enter value to delete\n");
+	scanf("%d",&n);
+	lazyDelete(root,n);
+	printf("In-order printing\n");
 	inOrder(root);
 	printf("Pre-order printing\n");
 	preOrder(root);
