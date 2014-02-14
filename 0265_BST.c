@@ -7,14 +7,66 @@ typedef struct node
 }node;
 void insert(node *tree,node *leaf)
 {
-	if(tree==NULL)					//base case for the recursion
-		tree=leaf;
+	if(tree->data>leaf->data)
+	{
+		if(tree->leftChild==NULL)
+			tree->leftChild=leaf;
+		else
+			insert(tree->leftChild,leaf);
+	}
 	else
 	{
-		if(tree->data<leaf->data)
-			insert(tree->leftChild,leaf);
+		if(tree->rightChild==NULL)
+			tree->rightChild=leaf;
 		else
 			insert(tree->rightChild,leaf);
+	}
+}
+void search(node *tree,int val)
+{
+	if(tree)
+	{
+		if(tree->data==val)
+		{
+			printf("found\n");
+			return;
+		}
+		else
+		{
+			if(val>tree->data)
+				search(tree->rightChild,val);
+			else
+				search(tree->leftChild,val);
+		}
+	}
+	else
+		printf("Not found\n");
+}
+void inOrder(node *tree)
+{
+	if(tree)
+	{
+		inOrder(tree->leftChild);
+		printf("%d\n",tree->data);
+		inOrder(tree->rightChild);
+	}
+}
+void preOrder(node *tree)
+{
+	if(tree)
+	{
+		printf("%d\n",tree->data);
+		preOrder(tree->leftChild);
+		preOrder(tree->rightChild);
+	}
+}
+void postOrder(node *tree)
+{
+	if(tree)
+	{
+		postOrder(tree->leftChild);
+		postOrder(tree->rightChild);
+		printf("%d\n",tree->data);
 	}
 }
 int main()
@@ -36,12 +88,14 @@ int main()
 		else
 			insert(root,temp);
 	}
+	inOrder(root);
 	printf("Enter search value\n");
 	scanf("%d",&n);
 	search(root,n);
-	printf("Enter value to delete\n");
-	delete(root,n);
-	printf("In-order printing\n");
+	/*	printf("Enter value to delete\n");
+	 *	scanf("%d",&n);
+		delete(root,n);
+*/	printf("In-order printing\n");
 	inOrder(root);
 	printf("Pre-order printing\n");
 	preOrder(root);
