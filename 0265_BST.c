@@ -8,37 +8,26 @@ typedef struct node
 void insert(node *tree,node *leaf)
 {
 	if(tree->data>leaf->data)
-	{
 		if(tree->leftChild==NULL)
 			tree->leftChild=leaf;
 		else
 			insert(tree->leftChild,leaf);
-	}
 	else
-	{
 		if(tree->rightChild==NULL)
 			tree->rightChild=leaf;
 		else
 			insert(tree->rightChild,leaf);
-	}
 }
 void search(node *tree,int val)
 {
 	if(tree)
-	{
 		if(tree->data==val)
-		{
 			printf("found\n");
-			return;
-		}
 		else
-		{
 			if(val>tree->data)
 				search(tree->rightChild,val);
 			else
 				search(tree->leftChild,val);
-		}
-	}
 	else
 		printf("Not found\n");
 }
