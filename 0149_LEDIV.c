@@ -7,7 +7,7 @@ inline int read()
 	while((c=getchar_unlocked())<'0');
 	n+=(c-'0');
 	while((c=getchar_unlocked())>='0')
-		n=n*10+(c-'0');
+		n=(n<<3)+(n<<2)+(c-'0');
 	return n;
 }
 int gcd(int a,int b)
@@ -40,10 +40,7 @@ int isPrime(int num)
 				break;
 			}
 		}
-		if(!c)
-			return 1;
-		else
-			return 0;
+		return !c;
 	}
 	else
 		return 0;
