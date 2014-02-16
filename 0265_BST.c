@@ -3,72 +3,98 @@
 typedef struct node
 {
 	int data;
-	struct node *leftChild,*rightChild;
+	struct node *left,*right;
 }node;
 void insert(node *tree,node *leaf)
 {
 	if(tree->data>leaf->data)
-		if(tree->leftChild==NULL)
-			tree->leftChild=leaf;
+		if(tree->left==NULL)
+			tree->left=leaf;
 		else
-			insert(tree->leftChild,leaf);
+			insert(tree->left,leaf);
 	else
-		if(tree->rightChild==NULL)
-			tree->rightChild=leaf;
+		if(tree->right==NULL)
+			tree->right=leaf;
 		else
-			insert(tree->rightChild,leaf);
+			insert(tree->right,leaf);
 }
-void search(node *tree,int val)
+int search(node *tree,int val)
 {
 	if(tree)
 		if(tree->data==val)
-			printf("found\n");
+			return 1;
 		else
 			if(val>tree->data)
-				search(tree->rightChild,val);
+				search(tree->right,val);
 			else
-				search(tree->leftChild,val);
+				search(tree->left,val);
 	else
-		printf("Not found\n");
+		return 0;
 }
 void inOrder(node *tree)
 {
 	if(tree)
 	{
-		inOrder(tree->leftChild);
-		printf("%d\n",tree->data);
-		inOrder(tree->rightChild);
+		inOrder(tree->left);
+		printf("%d ",tree->data);
+		inOrder(tree->right);
 	}
 }
 void preOrder(node *tree)
 {
 	if(tree)
 	{
-		printf("%d\n",tree->data);
-		preOrder(tree->leftChild);
-		preOrder(tree->rightChild);
+		printf("%d ",tree->data);
+		preOrder(tree->left);
+		preOrder(tree->right);
 	}
 }
 void postOrder(node *tree)
 {
 	if(tree)
 	{
-		postOrder(tree->leftChild);
-		postOrder(tree->rightChild);
-		printf("%d\n",tree->data);
+		postOrder(tree->left);
+		postOrder(tree->right);
+		printf("%d ",tree->data);
 	}
 }
 void lazyDelete(node *tree,int val)
 {
 	if(tree)
-	{
 		if(tree->data==val)
 			tree->data=0;
 		else if(val<tree->data)
-			search(tree->leftChild,val);
+			lazyDelete(tree->left,val);
 		else
-			search(tree->rightChild,val);
+			lazyDelete(tree->right,val);
+}
+node *min(node *tree)
+{
+	while(tree->left)
+		tree=tree->left;
+	return tree;
+}
+node *delete(node *tree,int val)
+{
+	node *temp=(node *)malloc(sizeof(node));
+	if(val<tree->data)
+		tree->left=delete(tree->left,val);
+	else if(val>tree->data)
+		tree->right=delete(tree->right,val);
+	else
+	{
+		if(tree->left&&tree->right)
+		{
+			temp=min(tree->right);
+			tree->data=temp->data;
+			tree->right=delete(tree->right,val);
+		}
+		else if(tree->right)
+			tree=tree->right;
+		else
+			tree=tree->left;
 	}
+	return tree;
 }
 int main()
 {
@@ -83,7 +109,7 @@ int main()
 		node *temp;
 		temp=(node *)malloc(sizeof(node));
 		scanf("%d",&temp->data);
-		temp->leftChild=temp->rightChild=NULL;
+		temp->left=temp->right=NULL;
 		if(root==NULL)
 			root=temp;
 		else
@@ -91,15 +117,18 @@ int main()
 	}
 	printf("Enter search value\n");
 	scanf("%d",&n);
-	search(root,n);
+	printf("%d\n",search(root,n));
 	printf("Enter value to delete\n");
 	scanf("%d",&n);
-	lazyDelete(root,n);
+	delete(root,n);
 	printf("In-order printing\n");
 	inOrder(root);
+	printf("\n");
 	printf("Pre-order printing\n");
 	preOrder(root);
+	printf("\n");
 	printf("Post-order printing\n");
 	postOrder(root);
+	printf("\n");
 	return 0;
 }
