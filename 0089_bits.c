@@ -1,4 +1,3 @@
-//Program Created by Nisarg Jhaveri on 05/11/2013
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
@@ -135,8 +134,5 @@ int main(){
 			}
 		}
 	}
-	/*for(i=0;i<N;i++){
-		printf("%s\n",all_name[i]->name);
-	}*/
 	return 0;
 }

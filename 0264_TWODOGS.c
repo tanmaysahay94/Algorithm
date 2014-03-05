@@ -1,49 +1,29 @@
 #include<stdio.h>
-typedef struct data
+#define inf 100000000
+int min(int a,int b)
 {
-	int number;
-	int address;
-}data;
-int cmp(const void *a,const void *b)
+	return a<b?a:b;
+}
+int max(int a,int b)
 {
-	if ((*(data *)a).number == (*(data *)b).number)
-		return (*(data *)a).address -(*(data *)b).address;
-	return (*(data *)a).number-(*(data *)b).number;
+	return a>b?a:b;
 }
 int main()
 {
-	int n,k,i,j,aDog,bDog,found=0;
+	int i,n,k,a[1000005],b[500005],ans=inf;
+	for(i=0;i<500005;i++)
+		b[i]=inf;
 	scanf("%d%d",&n,&k);
-	data d[n];
 	for(i=0;i<n;i++)
-	{
-		scanf("%d",&d[i].number);
-		d[i].address=i;
-	}
-	qsort(d,n,sizeof(data),cmp);
-	i=0;
-	j=n-1;
-	while(i<j)
-	{
-		if(d[i].number+d[j].number==k&&d[i].number!=d[j].number)
-		{
-			found=1;
-			break;
-		}
-		else if(d[i].number+d[j].number<k)
-			i++;
-		else
-			j--;
-	}
-	if(!found)
+		scanf("%d",a+i);
+	for(i=0;i<n;i++)
+		b[a[i]]=min(b[a[i]],min(i+1,n-i));		//b[a[i]] is current least distance of a[i] and it is being updated
+	for(i=1;i<=k;i++)
+		if(!(b[i]==inf||b[k-i]==inf||i==k-i))
+			ans=min(ans,max(b[i],b[k-i]));		//as both indices must sum up to k, but must be DISTINCT
+	if(ans==inf)
 		printf("-1\n");
 	else
-	{
-		aDog=d[i].address<d[j].address?d[i].address:d[j].address;
-		bDog=d[i].address>d[j].address?d[i].address:d[j].address;
-		aDog++;
-		bDog=n-bDog;
-		printf("%d\n",aDog>bDog?aDog:bDog);
-	}
+		printf("%d\n",ans);
 	return 0;
 }

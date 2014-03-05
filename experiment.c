@@ -3,9 +3,12 @@
 #include<math.h>
 int main()
 {
-	int k;
-	scanf("%d",&k);
-	int a[k];
-	printf("%d\n",sizeof(a)==k);
+	int n;
+	scanf("%d",&n);
+	while(n)
+	{
+		printf("%d\n",n&2);
+		scanf("%d",&n);
+	}
 	return 0;
 }
