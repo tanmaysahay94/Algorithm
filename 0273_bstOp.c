@@ -5,7 +5,7 @@ typedef struct node
 	int data;
 	struct node *left,*right;
 }node;
-int lookUpHeight,foundMyNode,foundIRNode,subTreeCount,subTreeInOrder[1000000];
+int lookUpHeight,foundMyNode,foundIRNode,subTreeCount,subTreeInOrder[1000000],levelElementCount,level[1000000];
 void insert(node *tree,node *leaf)
 {
 	if(leaf->data<tree->data)
@@ -44,26 +44,29 @@ void generateSubTree(node *tree)
 		generateSubTree(tree->right);
 	}
 }
-void findIRNode(node *tree,int val,int height)
+void levelCreate(node *tree,int height)
 {
-	if(height==1)
+	if(tree)
 	{
-		if(foundMyNode==1)
+		if(height==1)
+			level[levelElementCount++]=tree->data;
+		else
 		{
-			generateSubTree(tree);
-			printf("%d ",tree->data);
-			foundIRNode=1;
+			levelCreate(tree->left,height-1);
+			levelCreate(tree->right,height-1);
 		}
-		if(tree->data==val)
-			foundMyNode=1;
-		return;
 	}
-	else
+}
+void findAndGenerate(node *tree,int val)
+{
+	if(tree)
 	{
-		if(tree->left)
-			findIRNode(tree->left,val,height-1);
-		if(tree->right)
-			findIRNode(tree->right,val,height-1);
+		if(val<tree->data)
+			findAndGenerate(tree->left,val);
+		else if(val>tree->data)
+			findAndGenerate(tree->right,val);
+		else 
+			generateSubTree(tree);
 	}
 }
 int main()
@@ -72,7 +75,7 @@ int main()
 	scanf("%d",&t);
 	while(t--)
 	{
-		foundMyNode=foundIRNode=subTreeCount=0;
+		levelElementCount=foundMyNode=foundIRNode=subTreeCount=0;
 		lookUpHeight=1;
 		node *bst=NULL,*temp;
 		scanf("%d",&n);
@@ -89,11 +92,16 @@ int main()
 		scanf("%d%d",&myNode,&k);
 		if(lookUpHeight=getHeight(bst,myNode))
 		{
-			findIRNode(bst,myNode,lookUpHeight);
-			if(!foundIRNode)
+			levelCreate(bst,lookUpHeight);
+			for(i=0;i<levelElementCount;i++)
+				if(level[i]==myNode)
+					break;
+			if(i==levelElementCount-1)
 				printf("$ $\n");
 			else
 			{
+				printf("%d ",level[i+1]);
+				findAndGenerate(bst,level[i+1]);
 				if(k>subTreeCount)
 					printf("$\n");
 				else
@@ -102,7 +110,6 @@ int main()
 		}
 		else
 			printf("$ $\n");
-		lookUpHeight=1;
 	}
 	return 0;
 }
