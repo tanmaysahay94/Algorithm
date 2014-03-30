@@ -1,14 +1,14 @@
-#include<stdio.h>
-#include<string.h>
-#include<math.h>
+#include <stdio.h>
+
 int main()
 {
-	int n;
-	scanf("%d",&n);
-	while(n)
-	{
-		printf("%d\n",n&2);
-		scanf("%d",&n);
+#include < stdio.h >
+	int main(){
+		    char char_array[]="Hello\0World";
+		        char *str="Hello\0World";
+			    printf("%s %c\n",char_array,char_array[1]);
+			        printf("%s %c\n",str,str[1]);
+				    printf("%d %d\n",sizeof(char_array),sizeof(str));
+				        return 0;
 	}
-	return 0;
 }

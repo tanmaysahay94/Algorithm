@@ -20,7 +20,7 @@ int cmp(const void *a,const void *b)
 }
 int main()
 {
-	int breakingPoint,i,j,k,arrSize,distinct=0,textSize=0;
+	int breakingPoint,i,j,k,l,arrSize,insertionPoint,distinct=0,textSize=0;
 	char input,text[1000000];
 	huffData hd[128];
 	for(i=0;i<128;i++)
@@ -66,6 +66,12 @@ int main()
 			temp->fr=root[i].fr+root[i+1].fr;
 			temp->left=root[i];
 			temp->right=root[i+1];
+			for(k=i+2;k<distinct;k++)
+			{
+				root[k-2]->a=root[k]->a;
+				root[k-2]->fr=root[k]->fr;
+				root[k-2]->left=root[k-2]->right=root[k-2]->associatedTree=root[k]->left;
+			}
 			i+=2;
 		}
 	}
