@@ -40,7 +40,7 @@ stack_pop (queue_t * q)
 		removed_element = queue_remove (q);
 		queue_insert (q, removed_element);
 		/* same as below */
-		queue_insert (q, queue_remove (q))
+		queue_insert (q, queue_remove (q));
 	}
 	removed_element = queue_remove (q);
 

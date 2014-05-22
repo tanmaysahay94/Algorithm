@@ -2,7 +2,7 @@
 #define n 1000
 void main(void) 
 {
-	float i,a,b,sum=0;
+	float i,x,y,a,b,sum=0;
 	printf("\nThis program will integrate a function between two boundary limits.");
 	printf("\n\nEnter the first boundary limit:");
 	scanf("%f", &a);

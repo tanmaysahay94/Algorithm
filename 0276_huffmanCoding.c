@@ -63,7 +63,7 @@ int main()
 		while(i+1<distinct)
 		{
 			huffNode *temp=(huffNode *)malloc(sizeof(huffNode));
-			temp->fr=root[i].fr+root[i+1].fr;
+			temp->fr=root[i]->fr+root[i+1]->fr;
 			temp->left=root[i];
 			temp->right=root[i+1];
 			for(k=i+2;k<distinct;k++)

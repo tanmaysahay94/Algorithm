@@ -24,6 +24,5 @@ int main()
 		else
 			printf("Error\n");
 	}
-}
-return 0;
+	return 0;
 }

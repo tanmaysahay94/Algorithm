@@ -14,9 +14,9 @@ unsigned long long int Power(unsigned long long int a,unsigned long long int b)
 int main()
 {
 	unsigned long long int base,power;
-	printf("Base:");
+	printf("Base: ");
 	scanf("%llu",&base);
-	printf("Power:");
+	printf("Power: ");
 	scanf("%llu",&power);
 	printf("%llu\n",Power(base,power));
 	return 0;

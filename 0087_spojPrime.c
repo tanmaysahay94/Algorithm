@@ -5,7 +5,7 @@ int main()
 	long long int memorize[1000005]={0};
 	long long int lowlim,highlim,N,j,c,num;
 	float s;
-	scanf("%d",&N);
+	scanf("%lld",&N);
 	while(N--)
 	{
 		scanf("%lld%lld",&lowlim,&highlim);
