@@ -4,7 +4,7 @@ using namespace std;
 
 int f(int n)
 {
-	for (int i = n + 1; i <= 8976; i++)
+	for (int i = n + 1; i <= 9012; i++)
 	{
 		int p = i;
 		int a = p % 10;
