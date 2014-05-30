@@ -4,11 +4,11 @@
 
 using namespace std;
 
-int solve(vector<int>& v, int n)
+int solve(vector<int>& v, int n)		//bottom-up approach to the DP (longest non-decreasing subsequence)
 {
-	vector<int> lis(n, 1);
+	vector<int> lis(n, 1);				//lis[i] denotes length of lis that ends at i
 	int i, j, max = 0;
-	for (i = 0; i < v.size(); i++)
+	for (i = 0; i < v.size(); i++)		//i is the last element of the LIS that ends at it
 		for (j = 0; j < i; j++)
 			if (v[j] <= v[i] && lis[j] + 1 > lis[i])
 				lis[i] = lis[j] + 1;
