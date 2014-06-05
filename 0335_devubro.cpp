@@ -11,40 +11,25 @@
 
 using namespace std;
 
-void show(vector<long long>& v)
+bool cmp(long long a, long long b)
 {
-	int i;
-	for (i = 0; i < v.size(); i++)
-		cout << v[i] << " ";
-	cout << endl;
+	return a > b;
 }
+
 int main()
 {
-	long long n, m, i, target, total = 0;
+	long long n, m, i, lim, total = 0;
 	cin >> n >> m;
+	lim = min(m, n);
+	cout << lim << endl;
 	vector<long long> devu(n), bro(m);
 	for (i = 0; i < n; i++)
 		cin >> devu[i];
-	for (i - 0; i < m; i++)
+	for (i = 0; i < m; i++)
 		cin >> bro[i];
 	sort(devu.begin(), devu.end());
-	sort(bro.begin(), bro.end());
-	while (devu[0] < bro[n - 1])
-	{
-		show(devu);
-		show(bro);
-		target = (devu[0] + bro[n - 1]) >> 1;
-		total += bro[n - 1] - devu[0];
-		printf("target: %d total %d\n", target, total);
-		devu[0] = bro[n - 1] = target;
-		i = 0;
-		while (i < n - 1 && devu[i] > devu[i + 1])
-			swap(devu[i], devu[i + 1]);
-		i = m - 1;
-		while (i && bro[i] < bro[i - 1])
-			swap(bro[i], bro[i - 1]);
-		show(devu);
-		show(bro);
-	}
+	sort(bro.begin(), bro.end(), cmp);
+	for (i = 0; i < lim && devu[i] < bro[i]; i++)
+		total += (bro[i] - devu[i]);
 	cout << total << endl;
 }
