@@ -21,7 +21,6 @@ int main()
 	long long n, m, i, lim, total = 0;
 	cin >> n >> m;
 	lim = min(m, n);
-	cout << lim << endl;
 	vector<long long> devu(n), bro(m);
 	for (i = 0; i < n; i++)
 		cin >> devu[i];
