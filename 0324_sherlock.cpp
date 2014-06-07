@@ -6,37 +6,31 @@
 #include <utility>
 #include <functional>
 #include <cmath>
+#include <bits/stdc++.h>
 
 using namespace std;
 
+long long heap[100005];
 int main() 
 {
-	bool t = false;
 	long long n, i, test;
 	cin >> test;
 	while (test--) 
 	{
+		bool t = false;
 		cin >> n;
-		vector<long long> arr(n), left(n, 0), right(n, 0);
-		for (i = 0; i < n; i++)
+		vector<long long> arr(100005);
+		for (i = 1; i <= n; i++)
+		{
 			cin >> arr[i];
-		for (i = 1; i < n; i++)
-			right[0] += arr[i];
-		for (i = 1; i < n; i++)
-			right[i] = right[i - 1] - arr[i];
-		for (i = n - 2; i >= 0; i--)
-			left[n - 1] += arr[i];
-		for (i = n - 2; i >= 0; i--)
-			left[i] = left[i + 1] - arr[i];
-		for (i = 0; i < n; i++)
-			if (right[i] == left[i]) 
-			{
+			heap[i] = heap[i - 1] + arr[i];
+		}
+		for (i = 2; i < n; i++)
+			if (heap[i - 1] == heap[n] - heap[i])
 				t = true;
-				break;
-			}
-		if (t) 
+		if (t || n == 1)
 			cout << "YES\n";
-		else 
+		else
 			cout << "NO\n";
 	}
 }
