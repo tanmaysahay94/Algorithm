@@ -1,23 +1,23 @@
 #include <iostream>
-#include <stdio.h>
-#include <string.h>
-#include <algorithm>
 #include <vector>
+#include <cstdio>
+#include <cstring>
 #include <cmath>
 #include <map>
+#include <queue>
+#include <deque>
+#include <functional>
+#include <algorithm>
+#include <cassert>
 #include <utility>
-
+#include <bits/stdc++.h>
+#include <stack>
+#include <cstdlib>
+#include <set>
 using namespace std;
-
 int main()
 {
-	int i = 113236, count = 0;
-	while (i != 1)
-	{
-		if (i & 1) i = 3 * i + 1;
-		else i /= 2;
-		cout << i << endl;
-		count ++;
-	}
-	cout << count << endl;
+	string s;
+	scanf("%s", s);
+	printf("%s\n", s);
 }

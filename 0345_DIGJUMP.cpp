@@ -16,37 +16,67 @@
 
 using namespace std;
 
-int ans = 100005;
-vector<int> address[10];
-vector<int> smallest(100005, -1);
-
-void jump(string& a, int currLoc, int val)	//input - string a, currLoc - points to curr index, val - no. of jumps
-{
-	if (currLoc == a.length() - 1)
-	{
-		ans = min(ans, val);
-		return;
-	}
-	if (a[currLoc] == a[a.length() - 1])
-	{
-		ans = min(ans, val + 1);
-		return;
-	}
-	if (currLoc > 1)
-		jump(a, currLoc - 1, val + 1);
-	if (currLoc < a.length())
-		jump(a, currLoc + 1, val + 1);
-	for (int i = 0; i < address[a[currLoc] - 48].size(); i++)
-		jump(a, address[a[currLoc] - 48][i], val + 1);
-}
 int main()
 {
 	string s;
-	int i, len;
+	int i, j, k, len, idx, jumps, idxVal, valAtAddr, addr;
+	bool found = false;
+	pair<int, int> rem;
+	queue<pair<int, int> > working;
+	vector<int> same[10];
+
 	cin >> s;
 	len = s.length();
+	vector<bool> progress(len, false);
+
 	for (i = 0; i < len; i++)
-		address[s[i] - 48].push_back(i);
-	jump(s, 0, 0);
-	cout << ans << endl;
+		same[s[i] - '0'].push_back(i);
+
+	working.push(make_pair(0, 0));
+	progress[0] = true;
+	while (!working.empty())
+	{
+		rem = working.front();
+		working.pop();
+		idx = rem.first; jumps = rem.second;
+
+		if (idx > 0)
+			if (!progress[idx - 1])
+			{
+				progress[idx - 1] = true;
+				working.push(make_pair(idx - 1, jumps + 1));
+			}
+
+		if (idx < len - 1)
+		{
+			if (!progress[idx + 1])
+			{
+				progress[idx + 1] = true;
+				working.push(make_pair(idx + 1, jumps + 1));
+			}
+			if (idx + 1 == len - 1)
+			{
+				found = true;
+				break;
+			}
+		}
+
+		idxVal = s[idx] - '0';
+		for (i = 0; i < same[idxVal].size(); i++)
+		{
+			addr = same[idxVal][i];
+			if (!progress[addr])
+				working.push(make_pair(addr, jumps + 1));
+			if (addr == len - 1)
+			{
+				found = true;
+				break;
+			}
+		}
+
+		if (found)
+			break;
+	}
+	cout << working.back().second << endl;
+	return 0;
 }
