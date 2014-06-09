@@ -36,7 +36,6 @@ int main()
 		addr = rem.first; jumps = rem.second;
 		valAtAddr = f(s[addr]);
 		locationdone[addr] = true;
-//		printf("addr: %d value: %d jumps: %d\n", addr, valAtAddr, jumps);
 		if (!done[valAtAddr])
 		{
 			for (i = 0; i < counterparts[valAtAddr].size(); i++)
