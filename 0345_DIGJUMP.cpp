@@ -1,73 +1,66 @@
-#include <iostream>
 #include <cstdio>
-#include <cstdlib>
-#include <cassert>
 #include <vector>
-#include <map>
-#include <stack>
 #include <queue>
-#include <deque>
-#include <set>
-#include <cmath>
-#include <functional>
 #include <utility>
-#include <algorithm>
 #include <bits/stdc++.h>
 
 using namespace std;
 
+int f(char c)
+{
+	return c - '0';
+}
+
 int main()
 {
-	string s;
-	int i, j, k, len, idx, jumps, idxVal, valAtAddr, addr;
-	bool found = false;
-	pair<int, int> rem;
-	queue<pair<int, int> > working;
-	vector<int> same[10];
+	char s[100005];
+	scanf("%s", s);
 
-	cin >> s;
-	len = s.length();
-	vector<bool> progress(len, false);
+	bool found = false;
+	int i, idx, idxVal, addr, valAtAddr, jumps, len = strlen(s);
+	vector<int> counterparts[10];
+	vector<bool> done(10, false);
+	queue<pair<int, int> > q;
+	pair<int, int> rem;
 
 	for (i = 0; i < len; i++)
-		same[s[i] - '0'].push_back(i);
+		counterparts[f(s[i])].push_back(i);
 
-	working.push(make_pair(0, 0));
-	progress[0] = true;
-	while (!working.empty())
+	q.push(make_pair(0, 0));
+
+	while (!q.empty())
 	{
-		rem = working.front();
-		working.pop();
-		idx = rem.first; jumps = rem.second;
-
-		if (idx > 0)
-			if (!progress[idx - 1])
-			{
-				progress[idx - 1] = true;
-				working.push(make_pair(idx - 1, jumps + 1));
-			}
-
-		if (idx < len - 1)
+		rem = q.front();
+		q.pop();
+		addr = rem.first; jumps = rem.second;
+		valAtAddr = f(s[addr]);
+		for (i = 0; i < counterparts[valAtAddr].size(); i++)
 		{
-			if (!progress[idx + 1])
+			if (counterparts[valAtAddr][i] != addr)
 			{
-				progress[idx + 1] = true;
-				working.push(make_pair(idx + 1, jumps + 1));
-			}
-			if (idx + 1 == len - 1)
-			{
-				found = true;
-				break;
+				q.push(make_pair(counterparts[valAtAddr][i], jumps + 1));
+				if (counterparts[valAtAddr][i] == len - 1)
+				{
+					found = true;
+					break;
+				}
 			}
 		}
+		done[valAtAddr] = true;
 
-		idxVal = s[idx] - '0';
-		for (i = 0; i < same[idxVal].size(); i++)
+		if (addr > 0)
 		{
-			addr = same[idxVal][i];
-			if (!progress[addr])
-				working.push(make_pair(addr, jumps + 1));
-			if (addr == len - 1)
+			idx = addr - 1; idxVal = f(s[idx]);
+			if (!done[idxVal])
+				q.push(make_pair(idx, jumps + 1));
+		}
+
+		if (addr < len - 1)
+		{
+			idx = addr + 1; idxVal = f(s[idx]);
+			if (!done[idxVal])
+				q.push(make_pair(idx, jumps + 1));
+			if (idx == len - 1)
 			{
 				found = true;
 				break;
@@ -77,6 +70,7 @@ int main()
 		if (found)
 			break;
 	}
-	cout << working.back().second << endl;
+
+	printf("%d\n", q.back().second);
 	return 0;
 }
