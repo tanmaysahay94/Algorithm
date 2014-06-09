@@ -20,6 +20,7 @@ int main()
 	int i, idx, idxVal, addr, valAtAddr, jumps, len = strlen(s);
 	vector<int> counterparts[10];
 	vector<bool> done(10, false);
+	vector<bool> locationdone(len, false);
 	queue<pair<int, int> > q;
 	pair<int, int> rem;
 
@@ -34,32 +35,44 @@ int main()
 		q.pop();
 		addr = rem.first; jumps = rem.second;
 		valAtAddr = f(s[addr]);
-		for (i = 0; i < counterparts[valAtAddr].size(); i++)
+		locationdone[addr] = true;
+//		printf("addr: %d value: %d jumps: %d\n", addr, valAtAddr, jumps);
+		if (!done[valAtAddr])
 		{
-			if (counterparts[valAtAddr][i] != addr)
+			for (i = 0; i < counterparts[valAtAddr].size(); i++)
 			{
-				q.push(make_pair(counterparts[valAtAddr][i], jumps + 1));
-				if (counterparts[valAtAddr][i] == len - 1)
+				if (counterparts[valAtAddr][i] != addr && !locationdone[counterparts[valAtAddr][i]])
 				{
-					found = true;
-					break;
+					q.push(make_pair(counterparts[valAtAddr][i], jumps + 1));
+					locationdone[counterparts[valAtAddr][i]] = true;
+					if (counterparts[valAtAddr][i] == len - 1)
+					{
+						found = true;
+						break;
+					}
 				}
 			}
+			done[valAtAddr] = true;
 		}
-		done[valAtAddr] = true;
 
 		if (addr > 0)
 		{
 			idx = addr - 1; idxVal = f(s[idx]);
-			if (!done[idxVal])
+			if (!done[idxVal] && !locationdone[idx])
+			{
+				locationdone[idx] = true;
 				q.push(make_pair(idx, jumps + 1));
+			}
 		}
 
 		if (addr < len - 1)
 		{
 			idx = addr + 1; idxVal = f(s[idx]);
-			if (!done[idxVal])
+			if (!done[idxVal] && !locationdone[idx])
+			{
+				locationdone[idx] = true;
 				q.push(make_pair(idx, jumps + 1));
+			}
 			if (idx == len - 1)
 			{
 				found = true;
