@@ -11,7 +11,7 @@ int main()
 	while (t--)
 	{
 		scanf("%llu", &n);
-		vector<unsigned long long> a(n);
+		vector<unsigned long long> a(n), dp(n, 1), sum(105);
 		for (i = 0; i < n; i++)
 			scanf("%llu", a + i);
 	}
