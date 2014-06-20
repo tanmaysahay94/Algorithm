@@ -36,6 +36,7 @@ int select(vector<int>& list, int left, int right, int n)
 
 int main()
 {
+	srand(time(0));
 	int n, kth, i;
 	cin >> n;
 	vector<int> v(n);
