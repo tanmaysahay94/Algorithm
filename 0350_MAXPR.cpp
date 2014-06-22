@@ -1,18 +1,38 @@
+#include <iostream>
 #include <cstdio>
 #include <vector>
+#include <utility>
 
 using namespace std;
 
-const unsigned long long large = 1000000007;
+typedef long long LL;
+typedef unsigned long long ULL;
+typedef vector<int> VI;
+typedef vector<LL> VLL;
+typedef vector<ULL> VULL;
+typedef pair<int, int> PII;
+typedef pair<LL, LL> PLL;
+typedef pair<ULL, ULL> PULL;
+typedef vector<PII> VPII;
+typedef vector<PLL> VPLL;
+typedef vector<PULL> VPULL;
+
+#define FORL(i, a, b) for (i = a; i <= b; i++)
+
 int main()
 {
-	unsigned long long t, n, i;
-	scanf("%llu", &t);
+	ULL t, n, i, j;
+	cin >> t;
 	while (t--)
 	{
-		scanf("%llu", &n);
-		vector<unsigned long long> a(n), dp(n, 1), sum(105);
-		for (i = 0; i < n; i++)
-			scanf("%llu", a + i);
+		cin >> n;
+		VLL v(n), dp(n, 0);
+		FORL(i, 0, n - 1) cin >> v[i];
+		FORL(i, -100, 100)
+		{
+			FORL(j, 0, n - 1)
+			{
+			}
+		}
 	}
 }
