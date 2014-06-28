@@ -1,5 +1,4 @@
 #include <iostream>
-#include <vector>
 #include <cstdio>
 #include <cstring>
 #define _USE_MATH_DEFINES
@@ -15,7 +14,15 @@
 #include <stack>
 #include <cstdlib>
 #include <set>
+
 using namespace std;
+
 int main()
 {
+	long ax, ay, bx, by, cx, cy;
+	cin >> ax >> ay >> bx >> by >> cx >> cy;
+	long l = (cx - bx) * (by - ay), m = (bx - ax) * (cy - by);
+	if (l == m) cout << "TOWARDS\n";
+	else if (l > m) cout << "RIGHT\n";
+	else cout << "LEFT\n";
 }
