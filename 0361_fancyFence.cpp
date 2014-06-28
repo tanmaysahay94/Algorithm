@@ -2,7 +2,6 @@
 #include <vector>
 #include <cstdio>
 #include <cstring>
-#define _USE_MATH_DEFINES
 #include <cmath>
 #include <map>
 #include <queue>
@@ -15,8 +14,21 @@
 #include <stack>
 #include <cstdlib>
 #include <set>
+
 using namespace std;
+
 int main()
 {
-	cout << M_PI << endl;
+	int t;
+	float a, v;
+	cin >> t;
+	while (t--)
+	{
+		cin >> a;
+		v = 360.0/(180.0 - a);
+		if (v > 2 and v == floor(v))
+			cout << "YES\n";
+		else
+			cout << "NO\n";
+	}
 }

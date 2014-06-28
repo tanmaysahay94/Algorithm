@@ -2,7 +2,6 @@
 #include <vector>
 #include <cstdio>
 #include <cstring>
-#define _USE_MATH_DEFINES
 #include <cmath>
 #include <map>
 #include <queue>
@@ -15,8 +14,22 @@
 #include <stack>
 #include <cstdlib>
 #include <set>
+
 using namespace std;
+
 int main()
 {
-	cout << M_PI << endl;
+	int n;
+	float k, a, b, c, d, total = 0;
+	cin >> n >> k;
+	cin >> a >> b;
+	n--;
+	while (n--)
+	{
+		cin >> c >> d;
+		total += sqrt(pow(a - c, 2) + pow(b - d, 2));
+		a = c; b = d;
+	}
+	cout << total * k / 50.0 << endl;
+	return 0;
 }
