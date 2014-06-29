@@ -1,5 +1,5 @@
-#include <vector>
 #include <iostream>
+#include <vector>
 #include <cstdio>
 #include <cstring>
 #define _USE_MATH_DEFINES
