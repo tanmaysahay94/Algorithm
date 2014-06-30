@@ -2,6 +2,7 @@
 #include <vector>
 #include <cstdio>
 #include <cstring>
+#define _USE_MATH_DEFINES
 #include <cmath>
 #include <map>
 #include <queue>
@@ -19,17 +20,17 @@ using namespace std;
 
 int main()
 {
-	int n;
-	float k, a, b, c, d, total = 0;
-	cin >> n >> k;
-	cin >> a >> b;
-	n--;
-	while (n--)
-	{
-		cin >> c >> d;
-		total += sqrt(pow(a - c, 2) + pow(b - d, 2));
-		a = c; b = d;
-	}
-	printf("%.6lf\n", total * k / 50.0);
+	long long n, i, j, c, k, count = 0;
+	cin >> n;
+	for (i = 1; i <= n; i++)
+		for (j = i; j < n; j++)
+		{
+			c = i * i + j * j;
+			k = sqrt(c);
+			k *= k;
+			if (c > n * n) break;
+			if (k == c) count++;
+		}
+	cout << count << endl;
 	return 0;
 }

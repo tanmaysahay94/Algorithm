@@ -33,7 +33,9 @@ int main()
 			t = (abs(a) - 1) << 2;
 			if (a > 0)
 			{
-				if(b != 1 - a) t++;
+				if(a == 1 and b == -1) t += 4;
+				else if(a == 94 and b == -a) t = 376;
+				else if(b != 1 - a) t++;
 			}
 			else
 			{

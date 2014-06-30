@@ -36,6 +36,6 @@ int main()
 	else
 		for (i = 0; i < n; i += 2)
 			ans += pow(r[i + 1], 2) - pow(r[i], 2);
-	cout << ans * M_PI << endl;
+	printf("%.6lf\n", ans * M_PI);
 	return 0;
 }
