@@ -32,6 +32,7 @@ int main()
 		angle.push_back(atan2(y, x) * 180/M_PI);
 	}
 	sort(angle.begin(), angle.end());
+	// finding the largest angle WITHOUT the points
 	val = angle[0] + 360 - angle[n - 1];
 	for (i = 1; i < n; i++)
 		val = max(val, angle[i] - angle[i - 1]);

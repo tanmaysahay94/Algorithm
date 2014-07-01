@@ -61,6 +61,7 @@ int main()
 		else angle.push_back(curr - 360);
 	}
 	sort(angle.begin(), angle.end());
+	// finding the largest angle WITHOUT the points
 	val = angle[0] + 360 - angle[n - 1];
 	for (i = 1; i < n; i++)
 		val = max(val, angle[i] - angle[i - 1]);
