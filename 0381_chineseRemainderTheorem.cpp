@@ -21,11 +21,11 @@ using namespace std;
 #define con first
 #define bas second
 
-typedef long long LL;
+typedef unsigned long long ULL;
 
-LL gcd(LL a, LL b)
+ULL gcd(ULL a, ULL b)
 {
-	LL r;
+	ULL r;
 	while (b)
 	{
 		r = a % b;
@@ -35,15 +35,15 @@ LL gcd(LL a, LL b)
 	return a;
 }
 
-LL lcm(LL a, LL b)
+ULL lcm(ULL a, ULL b)
 {
 	return (a / gcd(a, b)) * b;
 }
 
-LL getInverse(LL val, LL base)
+ULL getInverse(ULL val, ULL base)
 {
-	LL curr, prev = val;
-	for (LL i = 0; i < base; i++)
+	ULL curr, prev = val;
+	for (ULL i = 0; i < base; i++)
 	{
 		curr = prev;
 		curr = (curr * val) % base;
@@ -53,25 +53,25 @@ LL getInverse(LL val, LL base)
 	return prev;
 }
 
-pair<LL, LL> chineseRemainderTheorem(vector<pair<LL, LL> >& mod_map)
+pair<ULL, ULL> chineseRemainderTheorem(vector<pair<ULL, ULL> >& mod_map)
 {
-	LL ans = 0, workingProd, totalProd = mod_map[0].bas, totalGCD = mod_map[0].bas, totalLCM = mod_map[0].bas;
-	for (LL i = 1; i < mod_map.size(); i++)
+	ULL ans = 0, workingProd, totalProd = mod_map[0].bas, totalGCD = mod_map[0].bas, totalLCM = mod_map[0].bas;
+	for (ULL i = 1; i < mod_map.size(); i++)
 	{
 		totalGCD = gcd(totalGCD, mod_map[i].bas);
 		totalLCM = lcm(totalLCM, mod_map[i].bas);
 		totalProd = totalProd * mod_map[i].bas;
 	}
 	bool solvable = true;
-	for (LL i = 1; i < mod_map.size(); i++)
+	for (ULL i = 1; i < mod_map.size(); i++)
 		if (mod_map[i].con % totalGCD != mod_map[i - 1].con % totalGCD)
 		{
 			solvable = false;
 			break;
 		}
 	if (not solvable)
-		return make_pair(-1 , -1);
-	for (LL i = 0; i < mod_map.size(); i++)
+		return make_pair(0 , 0);
+	for (ULL i = 0; i < mod_map.size(); i++)
 	{
 		workingProd = totalProd / mod_map[i].bas;
 		ans = (ans + mod_map[i].con * workingProd * getInverse(workingProd, mod_map[i].bas)) % totalLCM;
@@ -81,15 +81,15 @@ pair<LL, LL> chineseRemainderTheorem(vector<pair<LL, LL> >& mod_map)
 
 int main()
 {
-	LL n, i, congruence, base;
-	vector<pair<LL, LL> > mod_map;
+	ULL n, i, congruence, base;
+	vector<pair<ULL, ULL> > mod_map;
 	cin >> n;
 	for (i = 0; i < n; i++)
 	{
 		cin >> congruence >> base;
 		mod_map.push_back(make_pair(congruence % base, base));
 	}
-	pair<LL, LL> ans;
+	pair<ULL, ULL> ans;
 	ans = chineseRemainderTheorem(mod_map);
-	printf("%lld (mod %lld)\n", ans.con, ans.bas);
+	printf("%llu (mod %llu)\n", ans.con, ans.bas);
 }
