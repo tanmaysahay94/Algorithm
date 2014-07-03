@@ -16,30 +16,28 @@
 #include <cstdlib>
 #include <set>
 using namespace std;
-int dot(int ax, int ay, int bx, int by, int cx, int cy)
+int gcd(int a, int b)
 {
-	return (ax - bx) * (bx - cx) + (ay - by) * (by - cy);
+	if (not b) return a;
+	return gcd(b, a % b);
 }
-int c(int ax, int ay, int bx, int by)
+int lcm(int a, int b)
 {
-	if (ax == bx and ay == by)
-		return 0;
-	return 1;
-}
-int t(int ax, int ay, int bx, int by, int cx, int cy)
-{
-	if (c(ax, ay, bx, by) and c(ax, ay, cx, cy) and c(bx, by, cx, cy))
-		return 1;
-	return 0;
+	return (a/gcd(a, b)) * b;
 }
 int main()
 {
-	int te;
-	cin >> te;
-	while (te--)
+	int  i, n, totalGCD, totalLCM;
+	cin >> n;
+	vector<int> v(n);
+	for (i = 0; i < n; i++)
+		cin >> v[i];
+	totalGCD = totalLCM = v[0];
+	for (i = 1; i < n; i++)
 	{
-		int ax, ay, bx, by, cx, cy;
-		cin >> ax >> ay >> bx >> by >> cx >> cy;
-		printf("dot: %d triangle: %d\n", dot(ax, ay, bx, by, cx, cy), t(ax, ay, bx, by, cx, cy));
+		totalGCD = gcd(totalGCD, v[i]);
+		totalLCM = lcm(totalLCM, v[i]);
 	}
+	printf("gcd: %d\n", totalGCD);
+	printf("lcm: %d\n", totalLCM);
 }
