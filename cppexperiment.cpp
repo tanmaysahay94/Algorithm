@@ -16,28 +16,23 @@
 #include <cstdlib>
 #include <set>
 using namespace std;
-int gcd(int a, int b)
-{
-	if (not b) return a;
-	return gcd(b, a % b);
-}
-int lcm(int a, int b)
-{
-	return (a/gcd(a, b)) * b;
-}
 int main()
 {
-	int  i, n, totalGCD, totalLCM;
-	cin >> n;
-	vector<int> v(n);
-	for (i = 0; i < n; i++)
-		cin >> v[i];
-	totalGCD = totalLCM = v[0];
-	for (i = 1; i < n; i++)
+	int i;
+	vector<bool> prime(1000, true);
+	vector<int> primeList;
+	prime[0] = prime[1] = false;
+	i = 2;
+	while (i < 1000)
 	{
-		totalGCD = gcd(totalGCD, v[i]);
-		totalLCM = lcm(totalLCM, v[i]);
+		if (prime[i])
+			for (int j = i + i; j < 1000; j += i)
+				prime[j] = false;
+		i++;
 	}
-	printf("gcd: %d\n", totalGCD);
-	printf("lcm: %d\n", totalLCM);
+	for (i = 0; i < 1000; i++)
+		if (prime[i])
+			cout << i << " ";
+	cout << endl;
+	return 0;
 }
