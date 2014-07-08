@@ -18,21 +18,8 @@
 using namespace std;
 int main()
 {
-	int i;
-	vector<bool> prime(1000, true);
-	vector<int> primeList;
-	prime[0] = prime[1] = false;
-	i = 2;
-	while (i < 1000)
-	{
-		if (prime[i])
-			for (int j = i + i; j < 1000; j += i)
-				prime[j] = false;
-		i++;
-	}
-	for (i = 0; i < 1000; i++)
-		if (prime[i])
-			cout << i << " ";
-	cout << endl;
+	long double p = 0;
+	if (not p)
+		cout << "yay\n";
 	return 0;
 }
