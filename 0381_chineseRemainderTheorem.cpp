@@ -39,6 +39,25 @@ LL lcm(LL a, LL b)
 {
 	return (a / gcd(a, b)) * b;
 }
+/*
+LL fast_pow(LL base, LL n, LL m)
+{
+	if (not n)
+		return 1;
+	if (n == 1)
+		return base;
+	LL halfn = fast_pow(base, n/2, m);
+	if (n & 1)
+		return (((halfn * halfn) % m) * base) % m;
+	else
+		return (halfn * halfn) % m;
+}
+
+LL getInverse(LL val, LL base)
+{
+	return fast_pow(base, val - 2, val);
+}
+*/
 
 LL getInverse(LL val, LL base)
 {

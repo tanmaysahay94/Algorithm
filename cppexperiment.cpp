@@ -16,10 +16,16 @@
 #include <cstdlib>
 #include <set>
 using namespace std;
+#define pn puts("")
 int main()
 {
-	long double p = 0;
-	if (not p)
-		cout << "yay\n";
+	vector<vector<int> > v(3, vector<int> (5));
+	int i, j;
+	for (i = 0; i < 3; i++)
+		for (j = 0; j < 5; j++)
+			v[i][j] = i + j;
+	for (i = 0; i < 3 and printf("\n"); i++)
+		for (j = 0; j < 5 and printf(" "); j++)
+			cout << v[i][j];
 	return 0;
 }
