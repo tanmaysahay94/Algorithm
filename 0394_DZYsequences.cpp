@@ -39,10 +39,7 @@ int main()
 	for (i = 1; i < n - 1; i++)						// i is the index where value is changed
 	{
 		if (v[i + 1] - v[i - 1] > 1)
-		{
-			if (to[i - 1] + from[i + 1] + 1 > ans)
-				ans = to[i - 1] + from[i + 1] + 1;
-		}
+			ans = max(ans, to[i - 1] + from[i + 1] + 1);
 		else
 		{
 			ans = max(ans, to[i - 1] + 1);
