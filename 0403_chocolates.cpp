@@ -15,12 +15,22 @@
 #include <stack>
 #include <cstdlib>
 #include <set>
+
 using namespace std;
-#define pn puts("")
+
+typedef long long LL;
+typedef unsigned long long ULL;
+typedef vector<int> VI;
+
+#define SI(n) scanf("%d", &n)
+#define sortv(v) sort(v.begin(), v.end())
+#define pb(x) push_back(x)
+#define mp(x, y) make_pair(x, y)
+#define f first
+#define s second
+
 int main()
 {
-	int n;
-	cin >> n;
-	cout << modulus(n, 10) << endl;
+	LL n, m, k;
 	return 0;
 }

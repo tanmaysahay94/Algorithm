@@ -19,20 +19,30 @@
 using namespace std;
 
 typedef unsigned long long ULL;
+typedef vector<int> VI;
 
 #define SI(n) scanf("%d", &n)
 #define sortv(v) sort(v.begin(), v.end())
+#define pb(x) push_back(x)
+#define mp(x, y) make_pair(x, y)
+#define f first
+#define s second
 
 int main()
 {
-	int n, m, i, ans = 1500;
+	int n, m, i;
 	SI(n); SI(m);
-	vector<int> p(m);
-	for (i = 0; i < m; i++)
-		SI(p[i]);
-	sortv(p);
-	for (i = 0; i <= m - n; i++)
-		ans = min(ans, p[i + n - 1] - p[i]);
-	printf("%d\n", ans);
+	int candy, idx, ans = 0;
+	for (i = 1; i <= n; i++)
+	{
+		SI(candy);
+		candy = (candy - 1)/m;
+		if (candy >= ans)
+		{
+			ans = candy;
+			idx = i;
+		}
+	}
+	printf("%d\n", idx);
 	return 0;
 }

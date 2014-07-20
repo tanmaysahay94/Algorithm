@@ -18,21 +18,38 @@
 
 using namespace std;
 
+typedef long long LL;
 typedef unsigned long long ULL;
+typedef vector<int> VI;
 
 #define SI(n) scanf("%d", &n)
+#define SLL(n) scanf("%lld", &n)
+#define SULL(n) scanf("%llu", &n)
 #define sortv(v) sort(v.begin(), v.end())
+#define pb(x) push_back(x)
+#define mp(x, y) make_pair(x, y)
+#define f first
+#define s second
 
 int main()
 {
-	int n, m, i, ans = 1500;
-	SI(n); SI(m);
-	vector<int> p(m);
-	for (i = 0; i < m; i++)
-		SI(p[i]);
-	sortv(p);
-	for (i = 0; i <= m - n; i++)
-		ans = min(ans, p[i + n - 1] - p[i]);
-	printf("%d\n", ans);
+	LL t, n, val;
+	SLL(t);
+	while (t--)
+	{
+		SLL(n);
+		LL count = 0;
+		vector<bool> present(100050, false);
+		while (n--)
+		{
+			SLL(val);
+			if (not present[val])
+			{
+				present[val] = true;
+				count++;
+			}
+		}
+		printf("%lld\n", count);
+	}
 	return 0;
 }
