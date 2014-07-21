@@ -15,13 +15,13 @@
 #include <stack>
 #include <cstdlib>
 #include <set>
-
+ 
 using namespace std;
-
+ 
 typedef long long LL;
 typedef unsigned long long ULL;
 typedef vector<int> VI;
-
+ 
 #define SI(n) scanf("%d", &n)
 #define SLL(n) scanf("%lld", &n)
 #define SULL(n) scanf("%llu", &n)
@@ -30,40 +30,36 @@ typedef vector<int> VI;
 #define mp(x, y) make_pair(x, y)
 #define f first
 #define s second
-
+ 
 int main()
 {
-	LL n, i, j, k, count = 0;
+	LL n, i, j, k, ans = 0;
 	SLL(n);
-	vector<vector<int> > g(n, vector<int> (n));
-	vector<int> frnd_list[n];
 	getchar();
-	char c;
+	char g[2010][2010];
 	for (i = 0; i < n; i++)
 	{
 		for (j = 0; j < n; j++)
-		{
-			scanf("%c", &c);
-			g[i][j] = c -'0';
-			if (g[i][j])
-			{
-				frnd_list[i].pb(j);
-				frnd_list[j].pb(i);
-			}
-		}
+			scanf("%c", &g[i][j]);
 		getchar();
 	}
-	vector<vector<int> > m(n, vector<int> (n, 0));
 	for (i = 0; i < n; i++)
+	{
+		VI fr, nfr;
 		for (j = 0; j < n; j++)
-			if (i != j and not g[i][j] and not m[i][j])
-				for (k = 0; k < frnd_list[j].size(); k++)
-					if (g[i][frnd_list[j][k]])
-					{
-						m[i][j] = 1;
-						count++;
-						break;
-					}
-	printf("%lld\n", count);
+			if (i != j)
+				if (g[i][j] == '1')
+					fr.pb(j);
+				else
+					nfr.pb(j);
+		for (j = 0; j < nfr.size(); j++)
+			for (k = 0; k < fr.size(); k++)
+				if (g[fr[k]][nfr[j]]=='1')
+				{
+					ans++;
+					break;
+				}
+	}
+	printf("%lld\n", ans);
 	return 0;
 }
