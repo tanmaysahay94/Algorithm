@@ -17,10 +17,19 @@
 #include <set>
 using namespace std;
 #define pn puts("")
+
 int main()
 {
-	int n;
+	int n, val;
 	cin >> n;
-	cout << modulus(n, 10) << endl;
+	vector<int> v;
+	for (int i = 0; i < n; i++)
+	{
+		cin >> val;
+		v.push_back(val);
+	}
+	int f;
+	cin >> f;
+	cout << *(find(v.begin(), v.end(), f)) << endl;
 	return 0;
 }
