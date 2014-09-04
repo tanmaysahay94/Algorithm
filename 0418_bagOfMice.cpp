@@ -16,6 +16,7 @@ typedef vector<int> VI;
 int main()
 {
 	double dp[1010][1010];
+	// rows - no of white mice, columns - no of black mice
 	int w, b, i, j;
 	cin >> w >> b;
 	for (i = 0; i <= b; i++)

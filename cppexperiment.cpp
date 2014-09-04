@@ -20,16 +20,6 @@ using namespace std;
 
 int main()
 {
-	int n, val;
-	cin >> n;
-	vector<int> v;
-	for (int i = 0; i < n; i++)
-	{
-		cin >> val;
-		v.push_back(val);
-	}
-	int f;
-	cin >> f;
-	cout << *(find(v.begin(), v.end(), f)) << endl;
+	1e9 * log2(1e9);
 	return 0;
 }
