@@ -8,6 +8,7 @@
 #include <sys/types.h>
 #include <sys/syscall.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 #define error_handling(msg) do {perror(msg); exit(EXIT_FAILURE);} while(0)
 #define BUF_SIZE 1024*1024*5
@@ -80,47 +81,57 @@ void get_ugid(char* id, int flag)
 		my_strcat(fileToAccess, "/etc/passwd");
 	else
 		my_strcat(fileToAccess, "/etc/group");
-	FILE * fp;
-	char * line = NULL;
-	size_t len = 0;
-	ssize_t read;
-	char toReturn[100];
-	fp = fopen(fileToAccess, "r");
-	if (fp == NULL)
-		exit(EXIT_FAILURE);
 	int i, j, k, count;
 	int colon[1000];
 	int charCount, length = my_strlen(id);
-	while ((read = getline(&line, &len, fp)) != -1)
+	int fd, read_limit;
+	char buffer[1025];
+	char toReturn[100];
+	fd = open(fileToAccess, O_RDONLY);
+	if (fd == -1)
+		error_handling("open");
+	else
 	{
-		count = 0;
-		for (i = 0; i < read; i++)
-			if (*(line + i) == ':')
-				colon[count++] = i;
-		for (i = 0; i < count - 1; i++)
+		while (read(fd, &buffer, 1024) != 0)
 		{
-			if (colon[i + 1] - colon[i] == length + 1)
+			read_limit = my_strlen(buffer) < 1024 ? my_strlen(buffer) : 1024;
+			char line[1024];
+			count = 0;
+			int lineLen = 0;
+			for (i = 0; i < read_limit; i++)
 			{
-				charCount = 0;
-				for (j = colon[i] + 1; j < colon[i + 1]; j++)
-					if (*(line + j) == *(id + j - colon[i] -1))
-						charCount++;
-				if (charCount == length)
-					break;
+				if (buffer[i] == '\n')
+				{
+					line[lineLen++] = '\0';
+					lineLen = 0;
+					for (j = 0; line[j]; j++)
+						if (line[j] == ':')
+							colon[count++] = j;
+					for (j = 0; j < count; j++)
+						if (colon[j + 1] - colon[j] == length + 1)
+						{
+							charCount = 0;
+							for (k = colon[j] + 1; k < colon[j + 1]; k++)
+								if (line[k] == *(id + k - colon[j] - 1))
+									charCount++;
+							if (charCount == length)
+								break;
+						}
+					count = 0;
+					if (charCount == length)
+					{
+						for (j = 0; line[j] != ':'; j++)
+							toReturn[j] = line[j];
+						toReturn[j] = '\0';
+						write_wrapper(toReturn);
+						return;
+					}
+				}
+				else
+					line[lineLen++] = buffer[i];
 			}
 		}
-		if (charCount == length)
-		{
-			for (i = 0; *(line + i) != ':'; i++)
-				toReturn[i] = *(line + i);
-			toReturn[i] = '\0';
-			write_wrapper(toReturn);
-			return;
-		}
 	}
-	if (line)
-		free(line);
-	exit(EXIT_SUCCESS);
 }
 
 void my_get_time(long long t)
