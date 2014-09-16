@@ -18,6 +18,13 @@ typedef vector<LL> VLL;
 
 int main()
 {
-	printf("%*.*f", 9, 4, 1234.5);
+	LL t, x, y, x1, y1, x2, y2, ans;
+	SLL(t);
+	while (t--)
+	{
+		SLL(x); SLL(y); SLL(x1); SLL(y1); SLL(x2); SLL(y2);
+		ans = min(min(abs(x - x1), abs(x - x2)), min(abs(y - y1), abs(y - y2)));
+		printf("%lld\n", ans);
+	}
 	return 0;
 }

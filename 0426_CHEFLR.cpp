@@ -18,6 +18,25 @@ typedef vector<LL> VLL;
 
 int main()
 {
-	printf("%*.*f", 9, 4, 1234.5);
+	LL t, i, ans, mod = 1e9 + 7;
+	string s;
+	SLL(t);
+	while (t--)
+	{
+		ans = 1;
+		cin >> s;
+		for (i = 0; s[i]; i++)
+			if (i & 1)
+				if (s[i] == 'l')
+					ans = (ans * 2 - 1) % mod;
+				else
+					ans = (ans * 2 + 1) % mod;
+			else
+				if (s[i] == 'l')
+					ans = (ans * 2) % mod;
+				else
+					ans = (ans * 2 + 2) % mod;
+		cout << ans << endl;
+	}
 	return 0;
 }

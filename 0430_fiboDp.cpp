@@ -16,8 +16,29 @@ typedef vector<LL> VLL;
 #define f first
 #define s second
 
+vector<LL> dp(1000000, -1);
+LL mod = 1e9 + 7;
+
+LL fib(LL n)
+{
+	if (n == 0 or n == 1)
+	{
+		dp[n] = n;
+		return dp[n];
+	}
+	if (dp[n] != -1)
+		return dp[n];
+	else
+	{
+		dp[n] = (fib(n - 1) + fib(n - 2)) % mod;
+		return dp[n];
+	}
+}
+
 int main()
 {
-	printf("%*.*f", 9, 4, 1234.5);
+	LL n;
+	cin >> n;
+	cout << fib(n) << endl;
 	return 0;
 }

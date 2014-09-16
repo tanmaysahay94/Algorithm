@@ -18,6 +18,24 @@ typedef vector<LL> VLL;
 
 int main()
 {
-	printf("%*.*f", 9, 4, 1234.5);
+	LL t, i, ans;
+	string b, w;
+	vector<LL> first(26), second(26);
+	SLL(t);
+	while (t--)
+	{
+		for (i = 0; i < 26; i++)
+			first[i] = second[i] = 0;
+		ans = 0;
+		cin >> b >> w;
+		for (i = 0; b[i]; i++)
+			first[b[i] - 'a']++;
+		for (i = 0; w[i]; i++)
+			second[w[i] - 'a']++;
+		for (i = 0; i < 26; i++)
+			if (first[i] and second[i])
+				ans++;
+		printf("%lld\n", ans);
+	}
 	return 0;
 }

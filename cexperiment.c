@@ -2,9 +2,6 @@
 #include<stdlib.h>
 int main()
 {
-	if(1--)
-		printf("Hello");
-	else
-		printf("World");
-	return 0;
+	printf("%*.*f", 9, 4, 1234.5);
+	cout< return 0; 
 }
