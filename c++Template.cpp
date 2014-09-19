@@ -6,6 +6,7 @@ using namespace std;
 typedef long long LL;
 typedef unsigned long long ULL;
 typedef vector<int> VI;
+typedef vector<LL> VLL;
 
 #define SI(n) scanf("%d", &n)
 #define SLL(n) scanf("%lld", &n)
