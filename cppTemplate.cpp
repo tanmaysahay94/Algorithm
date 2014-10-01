@@ -1,3 +1,4 @@
+:insert
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -10,27 +11,16 @@ typedef vector<LL> VLL;
 #define SI(n) scanf("%d", &n)
 #define SLL(n) scanf("%lld", &n)
 #define SULL(n) scanf("%llu", &n)
+#define PI(n) printf("%d", &n)
+#define PLL(n) printf("%lld", &n)
+#define PULL(n) printf("%llu", &n)
 #define sortv(v) sort(v.begin(), v.end())
 #define pb(x) push_back(x)
 #define mp(x, y) make_pair(x, y)
 #define f first
 #define s second
 
-const LL mod = 1e9 + 7;
-
 int main()
 {
-	LL t;
-	SLL(t);
-	while (t--)
-	{
-		LL n;
-		SLL(n);
-		VLL arr(n);
-		for (int i = 0; i < n; i++)
-		{
-			SLL(arr[i]);
-		}
-	}
 	return 0;
 }

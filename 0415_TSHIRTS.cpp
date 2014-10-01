@@ -1,26 +1,11 @@
-#include <iostream>
-#include <vector>
-#include <cstdio>
-#include <cstring>
-#define _USE_MATH_DEFINES
-#include <cmath>
-#include <map>
-#include <queue>
-#include <deque>
-#include <functional>
-#include <algorithm>
-#include <cassert>
-#include <utility>
 #include <bits/stdc++.h>
-#include <stack>
-#include <cstdlib>
-#include <set>
 
 using namespace std;
 
 typedef long long LL;
 typedef unsigned long long ULL;
 typedef vector<int> VI;
+typedef vector<LL> VLL;
 
 #define SI(n) scanf("%d", &n)
 #define SLL(n) scanf("%lld", &n)
@@ -31,38 +16,59 @@ typedef vector<int> VI;
 #define f first
 #define s second
 
+const LL mod = 1e9 + 7;
+
+vector<LL> arr[110];
+vector<VLL> dp(1030, vector<LL> (110));
+
+LL solve(LL mask, LL id, LL n)
+{
+	if (mask == (1 << n) - 1)
+		return dp[mask][id] = 1;
+	if (id == 101)
+		return 0;
+	if (dp[mask][id] != -1)
+		return dp[mask][id];
+	LL ans = solve(mask, id + 1, n);
+	for (int i = 0; i < arr[id].size(); i++)
+	{
+		LL user = arr[id][i];
+		if (mask & (1 << (user - 1)))
+			continue;
+		ans = (ans % mod + solve(mask | (1 << (user - 1)), id + 1, n) % mod) % mod;
+	}
+	return dp[mask][id] = ans;
+}
+
+void init()
+{
+	for (int j = 0; j < 110; j++)
+		arr[j].clear();
+	for (int i = 0; i < 1030; i++)
+		for (int j = 0; j < 110; j++)
+			dp[i][j] = -1;
+}
+
 int main()
 {
-	int t, n, i, j, val;
-	SI(t);
+	LL t, n, val;
+	char c;
+	SLL(t);
 	while (t--)
 	{
-		SI(n);
-		VI ts[n];
-		vector<vector<bool> > present(n, vector<bool> (100, false));
-		char ch;
-		int count = 0;
-		while (count < n)
+		init();
+		SLL(n);
+		for (int i = 0; i < n; i++)
 		{
-			SI(val); val--;
-			ts[count].pb(val);
-			present[count][val] = true;
-			scanf("%c", &ch);
-			while (ch == ' ')
+			c = 'c';
+			while (c != '\n')
 			{
-				SI(val); val--;
-				ts[count].pb(val);
-				present[count][val] = true;
-				scanf("%c", &ch);
+				SLL(val);
+				arr[val].pb(i + 1);
+				scanf("%c", &c);
 			}
-			count++;
 		}
-		for (i = 0; i < n; i++)
-		{
-			for (j = 0; j < 100; j++)
-				cout << present[i][j] << " ";
-			cout << endl;
-		}
+		cout << solve(0, 1, n) << endl;
 	}
 	return 0;
 }
