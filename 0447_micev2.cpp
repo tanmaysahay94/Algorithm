@@ -10,6 +10,9 @@ typedef vector<LL> VLL;
 #define SI(n) scanf("%d", &n)
 #define SLL(n) scanf("%lld", &n)
 #define SULL(n) scanf("%llu", &n)
+#define PI(n) printf("%d", &n)
+#define PLL(n) printf("%lld", &n)
+#define PULL(n) printf("%llu", &n)
 #define sortv(v) sort(v.begin(), v.end())
 #define pb(x) push_back(x)
 #define mp(x, y) make_pair(x, y)
@@ -18,6 +21,15 @@ typedef vector<LL> VLL;
 
 int main()
 {
-	printf("%lf\n", ceil(log10(10)));
+	LL t, n, m;
+	while (t--)
+	{
+		VLL mice(n), holes(m);
+		for (int i = 0; i < n; i++)
+			SLL(mice[i]);
+		for (int i = 0; i < m; i++)
+			SLL(holes[i]);
+		sortv(mice); sortv(holes);
+	}
 	return 0;
 }
