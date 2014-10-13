@@ -18,7 +18,27 @@ typedef vector<LL> VLL;
 
 int main()
 {
-	LL t;
+	LL t, n, m;
 	SLL(t);
+	while (t--)
+	{
+		SLL(n); SLL(m);
+		VLL v(n);
+		for (int i = 0; i < n; i++)
+			SLL(v[i]);
+		sortv(v);
+		LL req = 0;
+		for (int i = 0; i < n - 1; i++)
+			req += v[n - 1] - v[i];
+		if (req > m)
+			printf("No\n");
+		else
+		{
+			if ((m - req) % n == 0)
+				printf("Yes\n");
+			else
+				printf("No\n");
+		}
+	}
 	return 0;
 }

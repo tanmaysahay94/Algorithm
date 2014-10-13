@@ -18,7 +18,20 @@ typedef vector<LL> VLL;
 
 int main()
 {
-	LL t;
-	SLL(t);
+	char s[1000100], qtype[10];
+	LL q, l, r;
+	scanf("%s", s);
+	SLL(q);
+	while (q--)
+	{
+		scanf("%s", qtype);
+		SLL(l); SLL(r);
+		if (qtype[0] == 'S')
+		{
+		}
+		else
+		{
+		}
+	}
 	return 0;
 }
