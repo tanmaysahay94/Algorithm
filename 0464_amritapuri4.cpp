@@ -45,8 +45,6 @@ int main()
 		for(int i=1; i<=n; i++)
 			for(int j=1; j<=m; j++)
 				presum[i][j].s = presum[i-1][j+1].s + v[i-1][j-1];
-//		for(int i=0; i<n; i++)
-//			print_array_v(presum[i]);
 		int mn = min(m, n);
 		LL mx = INT_MIN;
 		for(int size = 2; size <= mn; size++)
@@ -65,4 +63,3 @@ int main()
 	}
 	return 0;
 }
-
