@@ -12,6 +12,7 @@ typedef vector<LL> VLL;
 #define SLL(n) scanf("%lld", &n)
 #define SULL(n) scanf("%llu", &n)
 #define sortv(v) sort(v.begin(), v.end())
+#define sz(v) v.size()
 #define pb(x) push_back(x)
 #define mp(x, y) make_pair(x, y)
 #define f first
