@@ -16,6 +16,11 @@ typedef vector<LL> VLL;
 #define f first
 #define s second
 
+LL mod(LL a, LL n)
+{
+	return ((a%n) + n)%n;
+}
+
 LL _extendedEuclid(LL a, LL b, LL& x, LL& y)
 {
 	LL xx = y = 0;
@@ -33,7 +38,7 @@ LL _extendedEuclid(LL a, LL b, LL& x, LL& y)
 LL _modInverse(LL a, LL n)
 {
 	LL x, y;
-	LL d = extendedEuclid(a, n, x, y);
+	LL d = _extendedEuclid(a, n, x, y);
 	if (d > 1)
 		return -1;
 	return mod(x, n);
@@ -66,6 +71,6 @@ int main()
 {
 	LL a, b, m;
 	cin >> a >> b >> m;
-	LL inv = modInverse(b, m);
+	LL inv = _modInverse(b, m);
 	printf("Inverse: %lld div: %lld\n", inv, (a * inv) % m);
 }
