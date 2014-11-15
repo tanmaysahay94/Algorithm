@@ -16,6 +16,29 @@ typedef vector<LL> VLL;
 #define f first
 #define s second
 
+LL _extendedEuclid(LL a, LL b, LL& x, LL& y)
+{
+	LL xx = y = 0;
+	LL yy = x = 1;
+	while (b)
+	{
+		LL q = a/b;
+		LL t = b; b = a%b; a = t;
+		t = xx; xx = x - q*xx; x = t;
+		t = yy; yy = y - q*yy; y = t;
+	}
+	return a;
+}
+
+LL _modInverse(LL a, LL n)
+{
+	LL x, y;
+	LL d = extendedEuclid(a, n, x, y);
+	if (d > 1)
+		return -1;
+	return mod(x, n);
+}
+
 pair<LL, pair<LL, LL> > extendedEuclid(LL a, LL b)
 {
 	LL x = 1, y = 0;
