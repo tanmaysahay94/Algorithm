@@ -56,12 +56,17 @@ int main()
 	for (LL i = 0; i < n; i++)
 		SLL(v[i]);
 	fenwickTree ft(v);
-	LL q, l, r;
+	LL q, l, r, qType;
 	SLL(q);
 	while (q--)
 	{
-		SLL(l); SLL(r);
-		cout << ft.getSum(l, r) << endl;
+		// qType = 0 is to increase the value at index l by a value r
+		// qType = 1 is to get the sum of all values in range [l, r]
+		SLL(qType); SLL(l); SLL(r);
+		if (qType == 1)
+			cout << ft.getSum(l, r) << endl;
+		else
+			ft.increase(l, r);
 	}
 	return 0;
 }
