@@ -11,39 +11,25 @@ typedef vector<LL> VLL;
 #define SLL(n) scanf("%lld", &n)
 #define SULL(n) scanf("%llu", &n)
 #define sortv(v) sort(v.begin(), v.end())
+#define sz(v) v.size()
 #define pb(x) push_back(x)
 #define mp(x, y) make_pair(x, y)
 #define f first
 #define s second
 
-long long int phi(long long x) // euler totient function (etf)
-{
-	long long int ret = 1, i, pow;
-	for (i = 2; x != 1; i++) 
-	{
-		pow = 1;
-		if(i > sqrt(x))
-			break;
-		while (!(x%i)) 
-		{
-			x /= i;
-			pow *= i;
-		}
-		ret *= (pow - (pow/i));
-	}
-	if(x!=1)
-		ret *= x-1;
-	return ret;
-}
-
 int main()
 {
-	LL n;
-	cin >> n;
+	LL n, x, y, maxx = INT_MIN, maxy = INT_MIN, minx = INT_MAX, miny = INT_MAX;
+	SLL(n);
 	while (n--)
 	{
-		LL v;
-		SLL(v);
-		cout << phi(v) << endl;
+		SLL(x); SLL(y);
+		maxx = max(maxx, x);
+		minx = min(minx, x);
+		maxy = max(maxy, y);
+		miny = min(miny, y);
 	}
+	LL side = max(abs(maxx - minx), abs(maxy - miny));
+	printf("%lld\n", side * side);
+	return 0;
 }

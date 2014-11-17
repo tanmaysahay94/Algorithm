@@ -11,39 +11,22 @@ typedef vector<LL> VLL;
 #define SLL(n) scanf("%lld", &n)
 #define SULL(n) scanf("%llu", &n)
 #define sortv(v) sort(v.begin(), v.end())
+#define sz(v) v.size()
 #define pb(x) push_back(x)
 #define mp(x, y) make_pair(x, y)
 #define f first
 #define s second
 
-long long int phi(long long x) // euler totient function (etf)
-{
-	long long int ret = 1, i, pow;
-	for (i = 2; x != 1; i++) 
-	{
-		pow = 1;
-		if(i > sqrt(x))
-			break;
-		while (!(x%i)) 
-		{
-			x /= i;
-			pow *= i;
-		}
-		ret *= (pow - (pow/i));
-	}
-	if(x!=1)
-		ret *= x-1;
-	return ret;
-}
-
 int main()
 {
-	LL n;
+	LL n, oddEnd, evenEnd;
 	cin >> n;
-	while (n--)
-	{
-		LL v;
-		SLL(v);
-		cout << phi(v) << endl;
-	}
+	if (n & 1)
+		oddEnd = n/2 + 1, evenEnd = (n - 1)/2;
+	else
+		evenEnd = n/2, oddEnd = (n - 1)/2 + 1;
+	LL ans = evenEnd * (evenEnd + 1);
+	ans -= oddEnd * oddEnd;
+	cout << ans << endl;
+	return 0;
 }
