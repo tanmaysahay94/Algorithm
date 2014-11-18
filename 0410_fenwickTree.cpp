@@ -18,6 +18,7 @@ typedef vector<LL> VLL;
 #define s second
 
 // 0-indexed fenwickTree
+// range update range query not implemented yet
 class fenwickTree {
 	VLL tree;
 	LL n;
