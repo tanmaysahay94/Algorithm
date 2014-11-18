@@ -31,8 +31,8 @@ class fenwickTree {
 		}
 		void update(LL idx, LL val) {
 			idx += 2;
-			LL lim = sz(tree);
-			while (idx < lim) {
+			LL s = sz(tree);
+			while (idx < s) {
 				tree[idx] += val;
 				idx += (idx&-idx);
 			}
@@ -57,16 +57,18 @@ int main()
 {
 	LL n, q;
 	SLL(n); SLL(q);
-	// n is the size of the array that uses the fenwickTree
 	fenwickTree f(n);
 	while (q--)
 	{
-		LL type, x, y;
-		SLL(type); SLL(x); SLL(y);
-		if (type)
+		char s[4];
+		LL x, y;
+		scanf("%s", s); SLL(x); SLL(y);
+		if (s[0] == 'S')
 			printf("%lld\n", f.sum(x, y));
-		else
+		else if (s[0] == 'G')
 			f.update(x, y);
+		else
+			f.update(x, -y);
 	}
 	return 0;
 }
