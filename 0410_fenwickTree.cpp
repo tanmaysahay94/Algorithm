@@ -17,6 +17,7 @@ typedef vector<LL> VLL;
 #define f first
 #define s second
 
+// 0-indexed fenwickTree
 class fenwickTree {
 	VLL tree;
 	LL n;
@@ -37,7 +38,13 @@ class fenwickTree {
 				idx += (idx&-idx);
 			}
 		}
-		LL sum(LL idx) {
+		void update(LL l, LL r, LL val) {
+			if (l > r)
+				swap(l, r);
+			update(l, val);
+			update(r + 1, -val);
+		}
+		LL getSum(LL idx) {
 			LL ret = 0;
 			idx += 2;
 			while (idx) {
@@ -49,7 +56,20 @@ class fenwickTree {
 		LL sum(LL l, LL r) {
 			if (l > r)
 				swap(l, r);
-			return sum(r) - sum(l - 1);
+			return getSum(r) - getSum(l - 1);
+		}
+		LL sum(LL idx) {
+			idx += 2;
+			LL ret = tree[idx];
+			if (idx) {
+				LL z = idx - (idx&-idx);
+				idx--;
+				while (idx != z) {
+					ret -= tree[idx];
+					idx -= (idx&-idx);
+				}
+			}
+			return ret;
 		}
 };
 
@@ -58,15 +78,31 @@ int main()
 	LL n, q;
 	SLL(n); SLL(q);
 	// n is the size of the array that uses the fenwickTree
+	// fenwickTree is 0-indexed
 	fenwickTree f(n);
 	while (q--)
 	{
 		LL type, x, y;
-		SLL(type); SLL(x); SLL(y);
-		if (type)
+		cout << "1. Pt Update\n2. Range Update\n3. Range Query\n4. Pt Query\n";
+		SLL(type); SLL(x);
+		if (type == 3)
+		{
+			SLL(y);
 			printf("%lld\n", f.sum(x, y));
-		else
+		}
+		else if (type == 1)
+		{
+			SLL(y);
 			f.update(x, y);
+		}
+		else if (type == 2)
+		{
+			LL val;
+			SLL(y); SLL(val);
+			f.update(x, y, val);
+		}
+		else
+			printf("%lld\n", f.sum(x));
 	}
 	return 0;
 }
