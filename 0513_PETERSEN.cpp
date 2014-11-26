@@ -39,7 +39,6 @@ int check(LL startVal, string& s)
 		}
 		else
 		{
-			LL tmp = s[i] - 'A';
 			if (s[i] == next)
 				cur -= 5;
 			else if (val == (cur + 2) % 5 or val == (cur + 3) % 5)
