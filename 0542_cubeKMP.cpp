@@ -7,9 +7,9 @@ typedef unsigned long long ULL;
 typedef vector<int> VI;
 typedef vector<LL> VLL;
 
-#define largeI(n) scanf("%d", &n)
-#define largeLL(n) scanf("%lld", &n)
-#define largeULL(n) scanf("%llu", &n)
+#define haystackI(n) scanf("%d", &n)
+#define haystackLL(n) scanf("%lld", &n)
+#define haystackULL(n) scanf("%llu", &n)
 #define sortv(v) sort(v.begin(), v.end())
 #define sz(v) v.size()
 #define pb(x) push_back(x)
@@ -18,7 +18,7 @@ typedef vector<LL> VLL;
 #define s second
 
 int n, w;
-VI a(222222), small(222222), large(222222), fail(222222);
+VI a(222222), needle(222222), haystack(222222), fail(222222);
 
 void buildKMP() 
 {
@@ -27,7 +27,7 @@ void buildKMP()
 	int i = 2, j = 0;
 	while (i <= w) 
 	{
-		if (small[i-1] == small[j]) 
+		if (needle[i-1] == needle[j]) 
 			fail[i++] = ++j;
 		else if (j > 0) 
 			j = fail[j];
@@ -42,7 +42,7 @@ int KMP()
 	int i = 0, j = 0, ans = 0;
 	while (i + j < n) 
 	{
-		if (large[i+j] == small[j]) 
+		if (haystack[i+j] == needle[j]) 
 		{
 			if (++j == w) 
 			{
@@ -68,11 +68,11 @@ int main()
 	for (int i = 0; i < n; i++)
 		scanf("%d", &a[i]);
 	for (int i = 1; i < n; i++)
-		large[i-1] = a[i] - a[i-1];
+		haystack[i-1] = a[i] - a[i-1];
 	for (int i = 0; i < w; i++)
 		scanf("%d", &a[i]);
 	for (int i = 1; i < w; i++)
-		small[i-1] = a[i] - a[i-1];
+		needle[i-1] = a[i] - a[i-1];
 	w--;
 	n--;
 	if (w)
