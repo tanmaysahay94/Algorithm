@@ -17,65 +17,116 @@ typedef vector<LL> VLL;
 #define f first
 #define s second
 
-vector<pair<LL, pair<pair<LL, LL>, pair<LL, LL> > > > answer;
-map<pair<pair<LL, LL>, pair<LL, LL> >, int> mp;
-
-void choc(LL ax, LL ay, LL bx, LL by, LL m)
-{
-	pair<pair<LL, LL>, pair<LL, LL> > tmp1 = mp(mp(ax, ay), mp(bx, by));
-	pair<pair<LL, LL>, pair<LL, LL> > tmp2 = mp(mp(ax, ay), mp(by, bx));
-	pair<pair<LL, LL>, pair<LL, LL> > tmp3 = mp(mp(ay, ax), mp(bx, by));
-	pair<pair<LL, LL>, pair<LL, LL> > tmp4 = mp(mp(ay, ax), mp(by, bx));
-	if (mp.find(tmp1) != mp.end() or mp.find(tmp2) != mp.end() or mp.find(tmp3) != mp.end() or mp.find(tmp4) != mp.end())
-		return;
-	else
-		mp[tmp4] = mp[tmp3] = mp[tmp2] = mp[tmp1] = 1;
-	LL a = ax * ay;
-	LL b = bx * by;
-	if (a == b)
-	{
-		answer.pb(mp(m, tmp1));
-		return;
-	}
-	if (a > b)
-	{
-		if (ax%2 and ax%3 and ay%2 and ay%3)
-			return;
-		if (ax % 2 == 0)
-			choc(ax/2, ay, bx, by, m+1);
-		if (ax % 3 == 0)
-			choc(2*ax/3, ay, bx, by, m+1);
-		if (ay % 2 == 0)
-			choc(ax, ay/2, bx, by, m+1);
-		if (ay % 3 == 0)
-			choc(ax, 2*ay/3, bx, by, m+1);
-	}
-	else
-	{
-		if (bx%2 and bx%3 and by%2 and by%3)
-			return;
-		if (bx % 2 == 0)
-			choc(ax, ay, bx/2, by, m+1);
-		if (bx % 3 == 0)
-			choc(ax, ay, 2*bx/3, by, m+1);
-		if (by % 2 == 0)
-			choc(ax, ay, bx, by/2, m+1);
-		if (by % 3 == 0)
-			choc(ax, ay, bx, 2*by/3, m+1);
-	}
-}
-
 int main()
 {
 	LL ax, ay, bx, by;
 	SLL(ax); SLL(ay); SLL(bx); SLL(by);
-	choc(ax, ay, bx, by, 0);
-	if (answer.size() == 0)
-		printf("-1\n");
-	else
+	LL count2[2][2] = {0}, count3[2][2] = {0};
+	LL val[2][2];
+	val[0][0] = ax, val[0][1] = ay, val[1][0] = bx, val[1][1] = by;
+	for (int i = 0; i < 2; i++)
+		for (int j = 0; j < 2; j++)
+			while (val[i][j] % 2 == 0)
+			{
+				val[i][j] /= 2;
+				count2[i][j]++;
+			}
+	for (int i = 0; i < 2; i++)
+		for (int j = 0; j < 2; j++)
+			while (val[i][j] % 3 == 0)
+			{
+				val[i][j] /= 3;
+				count3[i][j]++;
+			}
+	if (val[0][0] * val[0][1] != val[1][0] * val[1][1])
 	{
-		sortv(answer);
-		printf("%lld\n%lld %lld\n%lld %lld\n", answer[0].f, answer[0].s.f.f, answer[0].s.f.s, answer[0].s.s.f, answer[0].s.s.s);
+		cout << "-1\n";
+		return 0;
 	}
+	LL steps = 0;
+	if (count3[0][0] + count3[0][1] != count3[1][0] + count3[1][1])
+	{
+		if (count3[0][0] + count3[0][1] > count3[1][0] + count3[1][1])
+		{
+			LL diff = count3[0][0] + count3[0][1] - count3[1][0] - count3[1][1];
+			if (count3[0][0] >= diff)
+			{
+				count3[0][0] -= diff;
+				steps += diff;
+				count2[0][0] += diff;
+			}
+			else
+			{
+				LL a = diff - count3[0][0];
+				count2[0][0] += count3[0][0];
+				steps += count3[0][0];
+				count3[0][0] = 0;
+				count3[0][1] -= a;
+				count2[0][1] += a;
+				steps += a;
+			}
+		}
+		else
+		{
+			LL diff = count3[1][0] + count3[1][1] - count3[0][0] - count3[0][1];
+			if (count3[1][0] >= diff)
+			{
+				count3[1][0] -= diff;
+				steps += diff;
+				count2[1][0] += diff;
+			}
+			else
+			{
+				LL a = diff - count3[1][0];
+				count2[1][0] += count3[1][0];
+				steps += count3[1][0];
+				count3[1][0] = 0;
+				count3[1][1] -= a;
+				count2[1][1] += a;
+				steps += a;
+			}
+		}
+	}
+	if (count2[0][0] + count2[0][1] != count2[1][0] + count2[1][1])
+	{
+		if (count2[0][0] + count2[0][1] > count2[1][0] + count2[1][1])
+		{
+			LL diff = count2[0][0] + count2[0][1] - count2[1][0] - count2[1][1];
+			if (count2[0][0] >= diff)
+			{
+				count2[0][0] -= diff;
+				steps += diff;
+			}
+			else
+			{
+				LL a = diff - count2[0][0];
+				steps += count2[0][0];
+				count2[0][0] = 0;
+				count2[0][1] -= a;
+				steps += a;
+			}
+		}
+		else
+		{
+			LL diff = count2[1][0] + count2[1][1] - count2[0][0] - count2[0][1];
+			if (count2[1][0] >= diff)
+			{
+				count2[1][0] -= diff;
+				steps += diff;
+			}
+			else
+			{
+				LL a = diff - count2[1][0];
+				steps += count2[1][0];
+				count2[1][0] = 0;
+				count2[1][1] -= a;
+				steps += a;
+			}
+		}
+	}
+	for (int i = 0; i < 2; i++)
+		for (int j = 0; j < 2; j++)
+			val[i][j] = val[i][j] * pow(2, count2[i][j]) * pow(3, count3[i][j]);
+	printf("%lld\n%lld %lld\n%lld %lld\n", steps, val[0][0], val[0][1], val[1][0], val[1][1]);
 	return 0;
 }
