@@ -33,16 +33,11 @@ class trie {
 		int find(int val, int count = 32, int ans = 0) {
 			if(count) {
 				bool bit = val & 1;
-				if(child[1-bit] == NULL) {
-					ans <<= 1;
-					ans |= bit;
-					return child[bit]->find(val>>1, count-1, ans);
-				}
-				else {
-					ans <<= 1;
-					ans |= (1-bit);
-					return child[1-bit]->find(val>>1, count-1, ans);
-				}
+				ans <<= 1;
+				if (child[1-bit])
+					bit = 1-bit;
+				ans |= bit;
+				return child[bit]->find(val>>1, count-1, ans);
 			}
 			return ans;
 		}
