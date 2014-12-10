@@ -32,8 +32,8 @@ class trie {
 		}
 		int find(int val, int count = 32, int ans = 0) {
 			if(count) {
-				bool bit = val & 1;
 				ans <<= 1;
+				bool bit = val & 1;
 				if (child[1-bit])
 					bit = 1-bit;
 				ans |= bit;
