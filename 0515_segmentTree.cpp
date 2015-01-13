@@ -73,6 +73,5 @@ int main()
 		else if(s[0] == 'T')
 			st.set(idx, st.get(idx, idx) - val);
 	}
-	
 	return 0;
 }
