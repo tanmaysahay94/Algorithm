@@ -20,8 +20,8 @@ typedef vector<LL> VLL;
 class edge
 {
 	public:
-	LL a, b, old, rep, diff, count;
-	edge(LL a_, LL b_, LL old_, LL rep_): a(a_), b(b_), old(old_), rep(rep_), diff(rep_-old_), count(0LL) {}
+		LL a, b, old, rep, diff, count;
+		edge(LL a_, LL b_, LL old_, LL rep_): a(a_), b(b_), old(old_), rep(rep_), diff(rep_-old_), count(0LL) {}
 };
 
 struct cmp
@@ -69,8 +69,8 @@ int main()
 			graph[x].pb(edge(x, y, a, b));
 			graph[y].pb(edge(y, x, a, b));
 		}
-//		LL start = 0;
-//		for (; start < n and graph[start].size() == 1; start++);
+		//		LL start = 0;
+		//		for (; start < n and graph[start].size() == 1; start++);
 		dfs(0, n);
 		sort(eList.begin(), eList.end(), cmp());
 		LL ans = 0;
