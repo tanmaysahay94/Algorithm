@@ -25,6 +25,7 @@ int main()
 			s[i] = 'z';
 		else
 			carry = 0;
+	}
 	if (strcmp(s, ss) > 0 and strcmp(s, t) < 0)
 		printf("%s\n", s);
 	else
