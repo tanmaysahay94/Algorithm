@@ -11,24 +11,18 @@ void optimizeIO()
 int main()
 {
 	optimizeIO();
-	char s[111], t[111], ss[111];
-	scanf("%s%s", ss, t);
-	int l = strlen(ss);
-	int carry = 1;
-	for (int i = l - 1; i >= 0; i--)
-		s[i] = ss[i];
-	s[l] = '\0';
-	for (int i = l - 1; i >= 0 and carry; i--)
-	{
-		s[i] += carry;
-		if (s[i] > 'z')
-			s[i] = 'z';
-		else
-			carry = 0;
-	}
-	if (strcmp(s, ss) > 0 and strcmp(s, t) < 0)
-		printf("%s\n", s);
+	string a, b;
+	cin >> a >> b;
+	int l = a.size() - 1;
+	while (a[l] == 'z' and l > 0)
+		a[l--] = 'a';
+	if (l == 0 and a[0] == 'z')
+		cout << "No such string\n";
 	else
-		printf("No such string\n");
+		a[l]++;
+	if (a < b)
+		cout << a;
+	else
+		cout << "No such string\n";
 	return 0;
 }
