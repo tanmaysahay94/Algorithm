@@ -1,0 +1,10 @@
+Group Number 4
+Pref 1: Project 5 - Cyclone Disaster Risk Assessment of Visakhapatnam - Dr. Pradeep
+Pref 2: Project 6 - Home Owners Tool for Earthquake Safety Assessment - Dr. Pradeep
+Pref 3: Project 7 - Designing a single family net zero energy house for Hyderabad - Dr. Vishal Garg
+Pref 4: Project 8 - Designing a single famliy net zero energy house for Shilong - Dr. Vishal Garg
+Pref 5: Project 4 - Design of a ground based robot for scouting and micro-climatic data collection for precision agriculture - Dr. Suril
+Pref 6: Project 3 - Design a robot that could help older people or those with disabilities to walk or lift heavy objects - Dr. Suril
+Pref 7: Project 1 - Open source software/tool for disaster management system - Dr. Neelima
+Pref 8: Project 2 - Crowd sourcing of Crisis Information - Dr. Neelima
+Pref 9: Project 9 - System for Managing Water Bodies in the State of Telangana - Dr. Rajan
