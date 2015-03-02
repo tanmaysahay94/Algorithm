@@ -16,11 +16,7 @@ long long solve(long long val)
 		return 0;
 	if (dp[val])
 		return dp[val];
-	long long temp = solve(val/2) + solve(val/3) + solve(val/4);
-	if (temp > val)
-		dp[val] = temp;
-	else
-		dp[val] = val;
+	dp[val] = max(val, solve(val/2) + solve(val/3) + solve(val/4));
 	return dp[val];
 }
 
