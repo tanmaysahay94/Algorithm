@@ -6,22 +6,20 @@ const int maxn = 1111;
 
 vector<int> G[maxn];
 vector<vector<int> > dad;
-vector<int> tin(maxn), tout(maxn), vis(maxn), level(maxn);
+vector<int> tin(maxn), tout(maxn), level(maxn);
 
 int timer, logn;
 
 void dfs(int v, int p, int lvl)
 {
-	if (vis[v])
-		return;
-	vis[v] = 1;
 	tin[v] = ++timer;
 	dad[v][0] = p;
 	level[v] = lvl;
 	for (int i = 1; i < logn; i++)
 		dad[v][i] = dad[dad[v][i - 1]][i - 1];
 	for (auto kid: G[v])
-		dfs(kid, v, lvl + 1);
+		if (kid != p)
+			dfs(kid, v, lvl + 1);
 	tout[v] = ++timer;
 }
 
@@ -48,7 +46,7 @@ int lca(int u, int v)
 
 void init()
 {
-	level = tin = tout = vis = vector<int> (maxn, 0);
+	level = tin = tout = vector<int> (maxn, 0);
 	dad = vector<vector<int> > (maxn, vector <int> (logn, 0));
 	for (int i = 0; i < maxn; i++)
 		G[i].clear();
