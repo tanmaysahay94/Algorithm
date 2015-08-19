@@ -52,6 +52,7 @@ int main()
 		scanf("%d%d%d%d%d%d", &x1, &y1, &z1, &x2, &y2, &z2);
 
 		U(x1), U(y1), U(z1), U(x2), U(y2), U(z2);
+		x1 += 3, y1 += 3, z1 += 3;
 
 		long long ans = query(x2, y2, z2);
 
