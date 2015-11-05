@@ -1,0 +1,134 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct polynomial
+{
+	int coef,power,match;
+	char id;
+}poly;
+int cmp(const void *a,const void *b)
+{
+	return (*(poly*)b).power-(*(poly*)a).power;
+}
+int main()
+{
+	int t,szA,szB,i,j,count,sum,curPower,printCount,ansCount;
+	scanf("%d",&t);
+	while(t--)
+	{
+		count=ansCount=printCount=0;
+		scanf("%d%d",&szA,&szB);
+		poly a[szA],b[szB],use[szA*szB],ansSum[szA+szB],prod[szA*szB],out[szA*szB];
+		for(i=0;i<szA;i++)
+		{
+			a[i].id='a';
+			a[i].match=0;
+			scanf("%d%d",&a[i].power,&a[i].coef);
+			use[count++]=a[i];
+		}
+		qsort(a,szA,sizeof(poly),cmp);
+		for(i=0;i<szB;i++)
+		{
+			b[i].id='b';
+			b[i].match=0;
+			scanf("%d%d",&b[i].power,&b[i].coef);
+			use[count++]=b[i];
+		}
+		qsort(b,szB,sizeof(poly),cmp);
+		qsort(use,count,sizeof(poly),cmp);
+		sum=0;
+		for(i=0;i<count-1;i++)
+		{
+			curPower=use[i].power;
+			sum+=use[i].coef;
+			if(use[i].power!=use[i+1].power)
+			{
+				ansSum[ansCount].power=curPower;
+				ansSum[ansCount].coef=sum;
+				sum=0;
+				if(ansSum[ansCount].coef)
+					printCount++;
+				ansCount++;
+			}
+		}
+		curPower=use[i].power;
+		sum+=use[i].coef;
+		ansSum[ansCount].power=curPower;
+		ansSum[ansCount].coef=sum;
+		if(ansSum[ansCount].coef)
+			printCount++;
+		ansCount++;
+		printf("%d\n",printCount);
+		for(i=0;i<ansCount;i++)
+			if(ansSum[i].coef)
+				printf("%d %d\n",ansSum[i].power,ansSum[i].coef);	//ADDITION DONE! xDDDDDDD
+		for(i=0;i<count;i++)
+			if(use[i].id=='b')
+				use[i].coef=-use[i].coef;
+		ansCount=printCount=sum=0;
+		i=1;
+		while(i<count)
+		{
+			curPower=use[i].power;
+			if((!use[i].match&&!use[i-1].match)&&(use[i].power==use[i-1].power)&&((use[i].id=='a'&&use[i-1].id=='b')||(use[i].id=='b'&&use[i-1].id=='a')))
+			{
+				use[i].match=use[i-1].match=1;
+				sum=use[i].coef+use[i-1].coef;
+				ansSum[ansCount].coef=sum;
+				ansSum[ansCount].power=curPower;
+				if(ansSum[ansCount].coef)
+					printCount++;
+				ansCount++;
+			}
+			i++;
+		}
+		for(i=0;i<count;i++)
+		{
+			if(!use[i].match)
+			{
+				ansSum[ansCount].coef=use[i].coef;
+				ansSum[ansCount].power=use[i].power;
+				if(ansSum[ansCount].coef)
+					printCount++;
+				ansCount++;
+			}
+		}
+		printf("%d\n",printCount);
+		for(i=0;i<ansCount;i++)
+			if(ansSum[i].coef)
+				printf("%d %d\n",ansSum[i].power,ansSum[i].coef);	//SUBTRACTION DONE! xDDDD
+		count=ansCount=printCount=sum=0;
+		for(i=0;i<szA;i++)
+			for(j=0;j<szB;j++)
+			{
+				prod[count].power=a[i].power+b[j].power;
+				prod[count++].coef=a[i].coef*b[j].coef;
+			}
+		qsort(prod,count,sizeof(poly),cmp);
+		for(i=0;i<count-1;i++)
+		{
+			curPower=prod[i].power;
+			sum+=prod[i].coef;
+			if(prod[i].power!=prod[i+1].power)
+			{
+				out[ansCount].power=curPower;
+				out[ansCount].coef=sum;
+				sum=0;
+				if(out[ansCount].coef)
+					printCount++;
+				ansCount++;
+			}
+		}
+		curPower=prod[i].power;
+		sum+=prod[i].coef;
+		out[ansCount].power=curPower;
+		out[ansCount].coef=sum;
+		if(out[ansCount].coef)
+			printCount++;
+		ansCount++;
+		printf("%d\n",printCount);
+		for(i=0;i<ansCount;i++)
+			if(out[i].coef)
+				printf("%d %d\n",out[i].power,out[i].coef);		//MULTIPLICATION DONE! xD
+	}
+	return 0;
+}
