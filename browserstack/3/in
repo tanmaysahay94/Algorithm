@@ -1,0 +1,14 @@
+<books>
+	<book>
+		<author>Siddharth</author>
+		<title>Introduction to xpath</title>
+	</book>
+	<book lang="en">
+		<author>James</author>
+		<title>Introduction to XML</title>
+	</book>
+	<page>
+	</page>
+</books>
+EOF
+/books/book[1]/title
