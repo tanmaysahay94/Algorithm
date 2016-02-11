@@ -18,6 +18,8 @@ void __f(const char* names, __Tp1&& __tp1, __Tps&&... __tps){
 #define trace(...)
 #endif
 
+const int maxn = 1e5 + 1;
+
 typedef struct node {
 	int val;
 	node *left, *right;
@@ -56,8 +58,19 @@ node *prePost(vector<int>& pre, vector<int>& post)
 	return generate(pre, post, preIdx, 0, n - 1, n);
 }
 
+vector<pair<int, int> > printThing[maxn];
+
+void prettyPrintGenerate(node* t, int level, int& spaces)
+{
+	if (!t) return;
+	prettyPrintGenerate(t -> left, level + 1, spaces);
+	printThing[level].push_back(make_pair(t -> val, spaces++));
+	prettyPrintGenerate(t -> right, level + 1, spaces);
+}
+
 int main()
 {
+	int PRETTY_PRINT = 1;
 	int n;
 	cin >> n;
 	vector<int> pre(n), post(n);
@@ -66,7 +79,27 @@ int main()
 	for (int i = 0; i < n; i++)
 		cin >> post[i];
 	node *root = prePost(pre, post);
-	inorder(root);
-	cout << endl;
+	if (!PRETTY_PRINT)
+	{
+		inorder(root);
+		cout << endl;
+	}
+	else
+	{
+		string spaceChar = "  ";
+		int spcCnt = 0;
+		prettyPrintGenerate(root, 0, spcCnt);
+		for (int i = 0; i < maxn and printThing[i].size(); i++, cout << endl)
+		{
+			for (int j = 0; j < printThing[i][0].second; j++) cout << spaceChar;
+			cout << printThing[i][0].first;
+			for (int j = 1; j < (int) printThing[i].size(); j++)
+			{
+				int spacesToPrint = printThing[i][j].second - printThing[i][j - 1].second - 1;
+				for (int k = 0; k < spacesToPrint; k++) cout << spaceChar;
+				cout << printThing[i][j].first;
+			}
+		}
+	}
 	return 0;
 }
