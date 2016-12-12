@@ -1,4 +1,22 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <cstdio>
+#include <cstring>
+#define _USE_MATH_DEFINES
+#include <cmath>
+#include <map>
+#include <queue>
+#include <deque>
+#include <functional>
+#include <algorithm>
+#include <cassert>
+#include <utility>
+#include <stack>
+#include <cstdlib>
+#include <set>
+#include <unordered_map>
+#include <climits>
+
 using namespace std;
 
 #define TRACE
